@@ -82,13 +82,19 @@ def table_uniform(table):
     return table
 
 
-def parse_group_file(file_name):
+def parse_group_file(file):
+    if file is None:
+        return None
     group = OrderedDict()
-    with open(file_name) as fp:
-        for line in fp:
-            tabs = line.rstrip().split('\t')
-            group[tabs[0]] = tabs[1]
+    with open(file) as g:
+        for line in g:
+            tabs = line.strip().split('\t')
+            if len(tabs) >= 2:
+                group[tabs[0]] = tabs[1]
+            else:
+                group[tabs[0]] = tabs[0]
     return group
+
 
 
 def mkdir(dirname):
